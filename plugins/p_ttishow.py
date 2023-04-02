@@ -257,7 +257,11 @@ async def list_users(bot, message):
     users = await db.get_all_users()
     out = "Users Saved In DB Are:\n\n"
     async for user in users:
-        out += f"<a href=tg://user?id={user['id']}>{user['name']}</a>"
+        if 'id' in user:
+            out += f"<a href=tg://user?id={user['id']}>{user['name']}</a>"
+        else:
+            # Handle the case when the user dictionary doesn't have the 'id' key
+            continue
         if user['ban_status']['is_banned']:
             out += '( Banned User )'
         out += '\n'
@@ -268,19 +272,16 @@ async def list_users(bot, message):
             outfile.write(out)
         await message.reply_document('users.txt', caption="List Of Users")
 
-@Client.on_message(filters.command('chats') & filters.user(ADMINS))
+
+@@Client.on_message(filters.command('chats') & filters.user(ADMINS))
 async def list_chats(bot, message):
     raju = await message.reply('Getting List Of chats')
     chats = await db.get_all_chats()
     out = "Chats Saved In DB Are:\n\n"
     async for chat in chats:
-        out += f"**Title:** `{chat['title']}`\n**- ID:** "
-        if 'id' in chat:
-            out += f"<a href=tg://user?id={chat['id']} >{chat['id']}</a>"
-        else:
-            out += "`Not Available`"
+        out += f"**Title:** `{chat['title']}`\n**- ID:** `{chat['id']}`"
         if chat['chat_status']['is_disabled']:
-            out += ' ( Disabled Chat )'
+            out += '( Disabled Chat )'
         out += '\n'
     try:
         await raju.edit_text(out)
