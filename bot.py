@@ -15,11 +15,14 @@ from info import SESSION, API_ID, API_HASH, BOT_TOKEN, LOG_STR, LOG_CHANNEL, POR
 from utils import temp
 from typing import Union, Optional, AsyncGenerator
 from pyrogram import types
-from Script import script 
-from datetime import date, datetime 
 import pytz
 from aiohttp import web
 from plugins import web_server
+
+try:
+    from Script import script
+except ImportError:
+    script = None
 
 class Bot(Client):
 
@@ -47,7 +50,10 @@ class Bot(Client):
         self.username = '@' + me.username
         logging.info(f"{me.first_name} with for Pyrogram v{__version__} (Layer {layer}) started on {me.username}.")
         logging.info(LOG_STR)
-        logging.info(script.LOGO)
+        if script is not None:
+            logging.info(script.LOGO)
+        else:
+            logging.warning("Script module not found or attribute LOGO not found in script.py.")
         tz = pytz.timezone('Asia/Kolkata')
         today = date.today()
         now = datetime.now(tz)
