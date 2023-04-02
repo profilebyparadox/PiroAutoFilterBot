@@ -273,7 +273,7 @@ async def list_users(bot, message):
         await message.reply_document('users.txt', caption="List Of Users")
 
 
-@@Client.on_message(filters.command('chats') & filters.user(ADMINS))
+@Client.on_message(filters.command('chats') & filters.user(ADMINS))
 async def list_chats(bot, message):
     raju = await message.reply('Getting List Of chats')
     chats = await db.get_all_chats()
