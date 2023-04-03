@@ -21,6 +21,7 @@ import pytz
 from aiohttp import web
 from plugins import web_server
 from Script import RESTART_TXT
+from Script import LOGO
 
 class Bot(Client):
 
