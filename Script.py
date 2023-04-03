@@ -242,4 +242,4 @@ RESTART_TXT = """
 🛠️ 𝖡𝗎𝗂𝗅𝖽 𝖲𝗍𝖺𝗍𝗎𝗌 : <code>𝗏2.7.3 [ 𝖲𝗍𝖺𝖻𝗅𝖾 ]</code></b>"""
 
 LOGO = """
-MOVIES HUB ALPHA"""
+PIRO BOTS"""
